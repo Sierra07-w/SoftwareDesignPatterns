@@ -1,15 +1,39 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+interface Drink {
+    void prepare();
+}
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+class Coffee implements Drink {
+    @Override
+    public void prepare() {
+        System.out.println("Готовим кофе...");
+    }
+}
+
+class Tea implements Drink {
+    @Override
+    public void prepare() {
+        System.out.println("Готовим чай...");
+    }
+}
+
+class DrinkFactory {
+    public static Drink createDrink(String type) {
+        if (type.equalsIgnoreCase("coffee")) {
+            return new Coffee();
+        } else if (type.equalsIgnoreCase("tea")) {
+            return new Tea();
+        } else {
+            throw new IllegalArgumentException("Неизвестный напиток: " + type);
         }
+    }
+}
+
+public class FactoryDemo {
+    public static void main(String[] args) {
+        Drink drink1 = DrinkFactory.createDrink("coffee");
+        drink1.prepare();
+
+        Drink drink2 = DrinkFactory.createDrink("tea");
+        drink2.prepare();
     }
 }
